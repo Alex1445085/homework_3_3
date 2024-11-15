@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -19,10 +20,11 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Student> findStudent(@PathVariable Long id) {
-        Student student = servStudent.findStudent(id);
-        if (student == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Optional<Student>> findStudent(@PathVariable Long id) {
+        Optional<Student> student = servStudent.findStudent(id);
+        if (student.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
     }
@@ -32,13 +34,13 @@ public class StudentController {
         return servStudent.addStudent(student);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Student> editStudent(@PathVariable Long id, @RequestBody Student student) {
-        Student found = servStudent.editStudent(id, student);
-        if (found == null) {
+    @PutMapping
+    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
+        Student founded = servStudent.editStudent(student);
+        if (founded == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(found);
+        return ResponseEntity.ok(founded);
     }
 
     @DeleteMapping("{id}")
