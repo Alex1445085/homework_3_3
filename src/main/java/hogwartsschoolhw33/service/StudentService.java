@@ -1,49 +1,37 @@
 package hogwartsschoolhw33.service;
 
 import hogwartsschoolhw33.model.Student;
+import hogwartsschoolhw33.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class StudentService {
-    Map<Long, Student> studentMap = new HashMap<>();
-    Long id = 0L;
 
-    public Student findStudent(Long studentId) {
-        return studentMap.get(studentId);
+    private final StudentRepository studentRepository;
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    public Optional<Student> findStudent(Long id) {
+        return studentRepository.findById(id);
     }
 
     public Student addStudent(Student temp) {
-        temp.setId(++id);
-        studentMap.put(temp.getId(), temp);
-        return temp;
+        return studentRepository.save(temp);
     }
 
-    public Student editStudent(Long studentId, Student temp) {
-        temp.setId(studentId);
-        if (!studentMap.containsKey(studentId)) {
-            return null;
-        }
-        studentMap.put(studentId, temp);
-        return temp;
+    public Student editStudent(Student temp) {
+        return studentRepository.save(temp);
     }
 
-    public void deleteSudent(Long studentId) {
-        studentMap.remove(studentId);
+    public void deleteSudent(Long id) {
+        studentRepository.deleteById(id);
     }
-
-    public Collection<Student> allStudents() {
-        return Collections.unmodifiableCollection(studentMap.values());
-    }
-
+    
     public Collection<Student> studentsByAge(int age) {
-        Collection<Student> result = new HashSet<>();
-        for (Student actual : studentMap.values()) {
-            if (age == actual.getAge()) {
-                result.add(actual);
-            }
-        }
+        Set<Student> result = studentRepository.findByAge(age);
         return Collections.unmodifiableCollection(result);
     }
 }

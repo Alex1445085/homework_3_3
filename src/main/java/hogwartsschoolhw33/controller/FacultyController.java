@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/faculty")
@@ -18,10 +19,11 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Faculty> findfaculty(@PathVariable Long id) {
-        Faculty faculty = servFaculty.findFaculty(id);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Optional<Faculty>> findfaculty(@PathVariable Long id) {
+        Optional faculty = servFaculty.findFaculty(id);
+        if (faculty.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(faculty);
     }

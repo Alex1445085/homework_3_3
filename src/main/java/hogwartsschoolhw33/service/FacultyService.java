@@ -4,10 +4,7 @@ import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class FacultyService {
@@ -20,8 +17,8 @@ public class FacultyService {
         return facultyRepository.save(faculty);
     }
 
-    public Faculty findFaculty(Long facultyId) {
-        return facultyRepository.findById(facultyId).get();
+    public Optional<Faculty> findFaculty(Long facultyId) {
+        return facultyRepository.findById(facultyId);
     }
 
     public Faculty editFaculty(Faculty faculty) {
