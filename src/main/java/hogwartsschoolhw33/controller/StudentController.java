@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
@@ -20,13 +19,9 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Student>> findStudent(@PathVariable Long id) {
-        Optional<Student> student = servStudent.findStudent(id);
-        if (student.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(student);
+    public Student findStudent(@PathVariable Long id) {
+        Student student = servStudent.findStudent(id);
+        return student;
     }
 
     @PostMapping

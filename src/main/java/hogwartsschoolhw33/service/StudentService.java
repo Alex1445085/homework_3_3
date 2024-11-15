@@ -1,7 +1,9 @@
 package hogwartsschoolhw33.service;
 
+import hogwartsschoolhw33.Exception.StudentNotFoundException;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.StudentRepository;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,8 +16,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public Optional<Student> findStudent(Long id) {
-        return studentRepository.findById(id);
+    public Student findStudent(Long id) {
+        return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException());
     }
 
     public Student addStudent(Student temp) {
