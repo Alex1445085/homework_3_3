@@ -19,13 +19,8 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Faculty>> findfaculty(@PathVariable Long id) {
-        Optional faculty = servFaculty.findFaculty(id);
-        if (faculty.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(faculty);
+    public Faculty findfaculty(@PathVariable Long id) {
+        return servFaculty.findFaculty(id);
     }
 
     @PostMapping

@@ -33,10 +33,19 @@ public class StudentServiceTest {
     }
     @Test
     public void addStudent() {
+        Student expected = new Student();
+        expected.setId(1L);
+        when(studentRepository.save(expected)).thenReturn(expected);
+        Student actual = studentService.addStudent(expected);
+        assertNotNull(actual);
+        assertEquals(actual, expected);
     }
     @Test
-    public void deleteStudent(){
-
+    public void editStudent() {
+        Student expected = new Student();
+        expected.setId(1L);
+        when(studentRepository.save(expected)).thenReturn(expected);
+        Student actual = studentService.editStudent(expected);
+        assertEquals(actual, expected);
     }
-
 }

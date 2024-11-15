@@ -1,5 +1,6 @@
 package hogwartsschoolhw33.service;
 
+import hogwartsschoolhw33.Exception.FacultyNotFoundExcepyion;
 import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class FacultyService {
         return facultyRepository.save(faculty);
     }
 
-    public Optional<Faculty> findFaculty(Long facultyId) {
-        return facultyRepository.findById(facultyId);
+    public Faculty findFaculty(Long facultyId) {
+        return facultyRepository.findById(facultyId).orElseThrow(() -> new FacultyNotFoundExcepyion());
     }
 
     public Faculty editFaculty(Faculty faculty) {
