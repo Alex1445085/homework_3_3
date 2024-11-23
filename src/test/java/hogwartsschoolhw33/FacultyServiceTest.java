@@ -1,5 +1,6 @@
 package hogwartsschoolhw33;
 
+import hogwartsschoolhw33.Exception.FacultyNotFoundException;
 import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.repository.FacultyRepository;
 import hogwartsschoolhw33.service.FacultyService;
@@ -11,8 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +33,9 @@ public class FacultyServiceTest {
         assertNotNull(actual);
         assertEquals(actual, expected);
         verify(facultyRepository, times(1)).findById(1L);
+        assertThrows(FacultyNotFoundException.class,
+                () -> facultyService.findFaculty(0L),
+                "FacultyNotFoundException");
     }
 
     @Test

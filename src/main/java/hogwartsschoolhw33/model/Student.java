@@ -1,10 +1,7 @@
 package hogwartsschoolhw33.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -17,14 +14,22 @@ public class Student {
     private String name;
     private int age;
 
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
     public Student() {}
 
+    public Faculty getFaculty() { return faculty; }
     public Long getId() { return id; }
     public String getName() { return name; }
     public int getAge() { return age; }
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name;}
     public void setAge(int age) { this.age = age; }
+    public void setFaculty(Faculty faculty) { this.faculty = faculty; }
 
     @Override
     public String toString() { return "Student : id = " + id + ", name = " + name + ", age = " + age; }

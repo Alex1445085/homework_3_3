@@ -1,5 +1,6 @@
 package hogwartsschoolhw33;
 
+import hogwartsschoolhw33.Exception.StudentNotFoundException;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.StudentRepository;
 import hogwartsschoolhw33.service.StudentService;
@@ -10,8 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +29,9 @@ public class StudentServiceTest {
         Student actual = studentService.findStudent(1L);
         assertNotNull(actual);
         assertEquals(actual, expected);
+        assertThrows(StudentNotFoundException.class,
+                () -> studentService.findStudent(0L),
+                "FacultyNotFoundException");
         verify(studentRepository, times(1)).findById(1L);
     }
     @Test

@@ -1,13 +1,13 @@
 package hogwartsschoolhw33.controller;
 
 import hogwartsschoolhw33.model.Faculty;
+import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.service.FacultyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/faculty")
@@ -49,5 +49,14 @@ public class FacultyController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(servFaculty.facultiesByColor(color));
+    }
+    @GetMapping("findByNameOrColor/{name}/{color}")
+    public Collection<Faculty> findByNameOrColorIgnoreCase(@RequestParam(required = false) String name,
+                                                           @RequestParam(required = false) String color) {
+        return servFaculty.findByNameOrColor(name, color);
+    }
+    @GetMapping("getStudentsByIdOfFaculty/{id}")
+    public Collection<Student> studentsByIdOfFaculty(@RequestParam Long id) {
+        return servFaculty.studentsByIdOfFaculty(id);
     }
 }

@@ -1,5 +1,6 @@
 package hogwartsschoolhw33.controller;
 
+import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -51,5 +52,22 @@ public class StudentController {
         }
         return ResponseEntity.ok(servStudent.studentsByAge(age));
     }
+    @GetMapping("allStudents")
+    public Collection<Student> allStudent() {
+        return servStudent.allStudents();
+    }
+    @GetMapping("studentsBetweenAge/{min}/{max}")
+    public Collection<Student> findByAgeBetween(@RequestParam int min, @RequestParam int max) {
+        return servStudent.findByAgeBetween(min, max);
+    }
+    @GetMapping("/studentFacultyById/{id}")
+    public Faculty findFacultyByStudentId(@PathVariable Long id) {
+        return servStudent.findFacultyByStudentId(id);
+    }
+
+//    @GetMapping("/studentFaculty")
+//    public Faculty findFacultyByStudent(@RequestParam Student student) {
+//        return servStudent.findFacultyByStudent(student);
+//    }
 }
 
