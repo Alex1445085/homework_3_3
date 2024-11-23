@@ -1,6 +1,7 @@
 package hogwartsschoolhw33.controller;
 
 import hogwartsschoolhw33.model.Faculty;
+import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.service.FacultyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,8 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Faculty> findfaculty(@PathVariable Long id) {
-        Faculty faculty = servFaculty.findFaculty(id);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(faculty);
+    public Faculty findfaculty(@PathVariable Long id) {
+        return servFaculty.findFaculty(id);
     }
 
     @PostMapping
@@ -31,9 +28,9 @@ public class FacultyController {
         return servFaculty.addFaculty(faculty);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Faculty> editFaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
-        Faculty foundFac = servFaculty.editFaculty(id, faculty);
+    @PutMapping
+    public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty) {
+        Faculty foundFac = servFaculty.editFaculty(faculty);
         if (foundFac == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -52,5 +49,14 @@ public class FacultyController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(servFaculty.facultiesByColor(color));
+    }
+    @GetMapping("findByNameOrColor/{name}/{color}")
+    public Collection<Faculty> findByNameOrColorIgnoreCase(@RequestParam(required = false) String name,
+                                                           @RequestParam(required = false) String color) {
+        return servFaculty.findByNameOrColor(name, color);
+    }
+    @GetMapping("getStudentsByIdOfFaculty/{id}")
+    public Collection<Student> studentsByIdOfFaculty(@RequestParam Long id) {
+        return servFaculty.studentsByIdOfFaculty(id);
     }
 }
