@@ -40,7 +40,7 @@ public class StudentController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deletestudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         servStudent.deleteSudent(id);
         return ResponseEntity.ok().build();
     }
@@ -56,7 +56,8 @@ public class StudentController {
     public Collection<Student> allStudent() {
         return servStudent.allStudents();
     }
-    @GetMapping("studentsBetweenAge/{min}/{max}")
+
+    @GetMapping("studentsBetweenAge")
     public Collection<Student> findByAgeBetween(@RequestParam int min, @RequestParam int max) {
         return servStudent.findByAgeBetween(min, max);
     }
@@ -65,9 +66,9 @@ public class StudentController {
         return servStudent.findFacultyByStudentId(id);
     }
 
-//    @GetMapping("/studentFaculty")
-//    public Faculty findFacultyByStudent(@RequestParam Student student) {
-//        return servStudent.findFacultyByStudent(student);
-//    }
+    @GetMapping("/studentFaculty")
+    public Faculty findFacultyByStudent(@RequestBody Student student) {
+        return servStudent.findFacultyByStudent(student);
+    }
 }
 

@@ -2,7 +2,6 @@ package hogwartsschoolhw33.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.util.Collection;
 import java.util.Objects;
 
@@ -19,6 +18,11 @@ public class Faculty {
     private Collection<Student> students;
 
     public Faculty() {}
+
+    public Faculty(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
 
     public Long getId() { return id; }
     public String getName() { return name; }

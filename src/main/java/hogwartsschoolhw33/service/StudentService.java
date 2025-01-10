@@ -1,5 +1,6 @@
 package hogwartsschoolhw33.service;
 
+import hogwartsschoolhw33.Exception.FacultyNotFoundException;
 import hogwartsschoolhw33.Exception.StudentNotFoundException;
 import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
@@ -16,8 +17,8 @@ public class StudentService {
     }
 
     public Student findStudent(Long id) {
-        return studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException("Not found"));
+        return studentRepository.findById(id).
+                orElseThrow(() -> new StudentNotFoundException("Not found"));
     }
 
     public Student addStudent(Student temp) {
@@ -51,10 +52,11 @@ public class StudentService {
                 .getFaculty();
     }
 
-//    public Faculty findFacultyByStudent(Student student) {
-//        return studentRepository.findById(student.getId())
-//                .orElseThrow(() -> new FacultyNotFoundException("Not found"));
-//                .getFaculty();
-//        return studentRepository.findBy(student.getFaculty());
-//    }
+    public Faculty findFacultyByStudent(Student student) {
+        Faculty temp = new Faculty();
+        temp = studentRepository.findById(student.getId())
+                .orElseThrow(() -> new StudentNotFoundException("Not found"))
+                .getFaculty();
+        return temp;
+    }
 }

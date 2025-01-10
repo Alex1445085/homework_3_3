@@ -39,7 +39,7 @@ public class FacultyService {
         return Collections.unmodifiableCollection(res);
     }
 
-    public Collection<Faculty> findByNameOrColor(String name, String color) {
+    public Collection<Faculty> findByNameOrColor(String name, String color) {//
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 

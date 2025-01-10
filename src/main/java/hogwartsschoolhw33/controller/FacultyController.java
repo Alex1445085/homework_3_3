@@ -13,7 +13,6 @@ import java.util.Collection;
 @RequestMapping("/faculty")
 public class FacultyController {
     public final FacultyService servFaculty;
-
     public FacultyController(FacultyService servFaculty) {
         this.servFaculty = servFaculty;
     }
@@ -50,13 +49,13 @@ public class FacultyController {
         }
         return ResponseEntity.ok(servFaculty.facultiesByColor(color));
     }
-    @GetMapping("findByNameOrColor/{name}/{color}")
+    @GetMapping("/findByNameOrColor/{name}/{color}")
     public Collection<Faculty> findByNameOrColorIgnoreCase(@RequestParam(required = false) String name,
                                                            @RequestParam(required = false) String color) {
         return servFaculty.findByNameOrColor(name, color);
     }
     @GetMapping("getStudentsByIdOfFaculty/{id}")
-    public Collection<Student> studentsByIdOfFaculty(@RequestParam Long id) {
+    public Collection<Student> studentsByIdOfFaculty(@PathVariable Long id) {//@RequestParam
         return servFaculty.studentsByIdOfFaculty(id);
     }
 }
