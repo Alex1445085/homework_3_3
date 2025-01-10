@@ -1,8 +1,6 @@
 package hogwartsschoolhw33;
 
-import hogwartsschoolhw33.controller.FacultyController;
 import hogwartsschoolhw33.controller.StudentController;
-import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.FacultyRepository;
 import hogwartsschoolhw33.repository.StudentRepository;
@@ -10,7 +8,6 @@ import hogwartsschoolhw33.service.FacultyService;
 import hogwartsschoolhw33.service.StudentService;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -19,9 +16,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.*;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

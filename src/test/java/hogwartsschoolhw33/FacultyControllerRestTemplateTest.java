@@ -2,7 +2,6 @@ package hogwartsschoolhw33;
 
 import hogwartsschoolhw33.controller.FacultyController;
 import hogwartsschoolhw33.model.Faculty;
-import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.FacultyRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -17,9 +16,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Collection;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Nested
