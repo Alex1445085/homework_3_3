@@ -1,12 +1,12 @@
 package hogwartsschoolhw33.service;
 
-import hogwartsschoolhw33.Exception.FacultyNotFoundException;
 import hogwartsschoolhw33.Exception.StudentNotFoundException;
 import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.StudentRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -59,4 +59,23 @@ public class StudentService {
                 .getFaculty();
         return temp;
     }
+
+    public double avgAgeOfStudents() {
+        return studentRepository.avgAgeOfStudents();
+    }
+
+    public int totalAmountOfStudent() {
+        return studentRepository.totalAmountOfStudents();
+    }
+
+    public Collection<Student> getLastFive(int lim) {
+//        int lim = 5;
+//        int offSet = studentRepository.totalAmountOfStudents() - lim;
+        return studentRepository.getLastFive(lim);
+    }
+//    public Collection<Student> getLastFive() {
+//        int amount = studentRepository.totalAmountOfStudents();
+//        PageRequest page = PageRequest.of(4, 5);
+//        return studentRepository.findAll(page).getContent();
+//    }
 }

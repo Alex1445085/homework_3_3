@@ -70,5 +70,17 @@ public class StudentController {
     public Faculty findFacultyByStudent(@RequestBody Student student) {
         return servStudent.findFacultyByStudent(student);
     }
-}
 
+    @GetMapping("avgAgeOfStudents")
+    public double avgAgeOfStudents() {
+        return servStudent.avgAgeOfStudents();
+    }
+    @GetMapping("totalAmountOfStudents")
+    public int totalAmountOfStudents() {
+        return servStudent.totalAmountOfStudent();
+    }
+    @GetMapping("getLast/{lim}")
+    public Collection<Student> lastFive(@PathVariable int lim) {
+        return servStudent.getLastFive(lim);
+    }
+}
