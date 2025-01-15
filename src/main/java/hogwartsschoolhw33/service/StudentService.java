@@ -4,8 +4,6 @@ import hogwartsschoolhw33.Exception.StudentNotFoundException;
 import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.repository.StudentRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -73,9 +71,4 @@ public class StudentService {
 //        int offSet = studentRepository.totalAmountOfStudents() - lim;
         return studentRepository.getLastFive(lim);
     }
-//    public Collection<Student> getLastFive() {
-//        int amount = studentRepository.totalAmountOfStudents();
-//        PageRequest page = PageRequest.of(4, 5);
-//        return studentRepository.findAll(page).getContent();
-//    }
 }
