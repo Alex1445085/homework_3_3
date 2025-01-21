@@ -1,9 +1,7 @@
 package hogwartsschoolhw33.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @Entity

@@ -66,7 +66,7 @@ public class StudentService {
         return studentRepository.totalAmountOfStudents();
     }
 
-    public Collection<Student> getLastFive(int lim) {
-        return studentRepository.getLastFive(lim);
+    public Collection<Student> getLast(int lim) {
+        return studentRepository.getLast(lim);
     }
 }

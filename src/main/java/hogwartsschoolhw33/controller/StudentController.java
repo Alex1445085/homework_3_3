@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -51,6 +52,7 @@ public class StudentController {
         }
         return ResponseEntity.ok(servStudent.studentsByAge(age));
     }
+
     @GetMapping("allStudents")
     public Collection<Student> allStudent() {
         return servStudent.allStudents();
@@ -60,6 +62,7 @@ public class StudentController {
     public Collection<Student> findByAgeBetween(@RequestParam int min, @RequestParam int max) {
         return servStudent.findByAgeBetween(min, max);
     }
+
     @GetMapping("/studentFacultyById/{id}")
     public Faculty findFacultyByStudentId(@PathVariable Long id) {
         return servStudent.findFacultyByStudentId(id);
@@ -74,12 +77,14 @@ public class StudentController {
     public double avgAgeOfStudents() {
         return servStudent.avgAgeOfStudents();
     }
+
     @GetMapping("totalAmountOfStudents")
     public int totalAmountOfStudents() {
         return servStudent.totalAmountOfStudent();
     }
+
     @GetMapping("getLast/{lim}")
     public Collection<Student> lastFive(@PathVariable int lim) {
-        return servStudent.getLastFive(lim);
+        return servStudent.getLast(lim);
     }
 }

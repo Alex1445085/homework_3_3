@@ -6,7 +6,6 @@ import hogwartsschoolhw33.repository.AvatarRepository;
 import hogwartsschoolhw33.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
@@ -31,7 +30,6 @@ public class AvatarService {
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentRepository.getById(studentId);
-        //       Path filePath = Path.of(avatarsDir,  UUID.randomUUID() + "." +
         Path filePath = Path.of(avatarsDir, student.getId() + "." +
                       getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
 

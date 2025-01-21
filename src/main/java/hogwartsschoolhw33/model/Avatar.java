@@ -24,7 +24,6 @@ public class Avatar {
     public String getMediaType() {return mediaType;}
     public byte[] getData() {return data;}
     public Student getStudent() {return student;}
-
     public void setId(Long id) {this.id = id;}
     public void setFilePath(String filePath) {this.filePath = filePath;}
     public void setFileSize(long fileSize) {this.fileSize = fileSize;}
