@@ -8,6 +8,7 @@ import hogwartsschoolhw33.service.FacultyService;
 import hogwartsschoolhw33.service.StudentService;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

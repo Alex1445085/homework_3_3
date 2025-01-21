@@ -67,8 +67,6 @@ public class StudentService {
     }
 
     public Collection<Student> getLastFive(int lim) {
-//        int lim = 5;
-//        int offSet = studentRepository.totalAmountOfStudents() - lim;
         return studentRepository.getLastFive(lim);
     }
 }
