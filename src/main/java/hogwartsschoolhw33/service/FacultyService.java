@@ -1,45 +1,49 @@
 package hogwartsschoolhw33.service;
 
+import hogwartsschoolhw33.Exception.FacultyNotFoundException;
 import hogwartsschoolhw33.model.Faculty;
+import hogwartsschoolhw33.model.Student;
+import hogwartsschoolhw33.repository.FacultyRepository;
+import hogwartsschoolhw33.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class FacultyService {
-    private final Map<Long, Faculty> facultyMap = new HashMap<>();
-    Long id = 0L;
-
+    private final StudentRepository studentRepository;
+    private final FacultyRepository facultyRepository;
+    public FacultyService(StudentRepository studentRepository, FacultyRepository facultyRepository) {
+        this.studentRepository = studentRepository;
+        this.facultyRepository = facultyRepository;
+    }
     public Faculty addFaculty(Faculty faculty) {
-        faculty.setId(++id);
-        facultyMap.put(faculty.getId(), faculty);
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
     public Faculty findFaculty(Long facultyId) {
-        return facultyMap.get(facultyId);
+        return facultyRepository.findById(facultyId).
+                orElseThrow(() -> new FacultyNotFoundException("Not found"));
     }
 
-    public Faculty editFaculty(Long facultyId, Faculty faculty) {
-        faculty.setId(facultyId);
-        if (!facultyMap.containsKey(facultyId)) {
-            return null;
-        }
-        facultyMap.put(facultyId, faculty);
-        return faculty;
+    public Faculty editFaculty(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
 
     public void deleteFaculty(Long facultyId) {
-        facultyMap.remove(facultyId);
+        facultyRepository.deleteById(facultyId);
     }
 
     public Collection<Faculty> facultiesByColor(String color) {
-        Collection<Faculty> res = new HashSet<>();
-        for (Faculty actual : facultyMap.values()) {
-            if (color.equals(actual.getColor())) {
-                res.add(actual);
-            }
-        }
+        Set<Faculty> res = facultyRepository.findByColorIgnoreCase(color);
         return Collections.unmodifiableCollection(res);
+    }
+
+    public Collection<Faculty> findByNameOrColor(String name, String color) {//
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
+    }
+
+    public Collection<Student> studentsByIdOfFaculty(Long id) {
+        return studentRepository.findAllByFaculty_id(id);
     }
 }
