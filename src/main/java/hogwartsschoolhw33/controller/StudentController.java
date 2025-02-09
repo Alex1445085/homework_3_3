@@ -1,5 +1,6 @@
 package hogwartsschoolhw33.controller;
 
+import hogwartsschoolhw33.model.Faculty;
 import hogwartsschoolhw33.model.Student;
 import hogwartsschoolhw33.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,9 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Student> findStudent(@PathVariable Long id) {
+    public Student findStudent(@PathVariable Long id) {
         Student student = servStudent.findStudent(id);
-        if (student == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(student);
+        return student;
     }
 
     @PostMapping
@@ -32,17 +30,17 @@ public class StudentController {
         return servStudent.addStudent(student);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Student> editStudent(@PathVariable Long id, @RequestBody Student student) {
-        Student found = servStudent.editStudent(id, student);
-        if (found == null) {
+    @PutMapping
+    public ResponseEntity<Student> editStudent(@RequestBody Student student) {
+        Student founded = servStudent.editStudent(student);
+        if (founded == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(found);
+        return ResponseEntity.ok(founded);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deletestudent(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         servStudent.deleteSudent(id);
         return ResponseEntity.ok().build();
     }
@@ -54,5 +52,39 @@ public class StudentController {
         }
         return ResponseEntity.ok(servStudent.studentsByAge(age));
     }
-}
 
+    @GetMapping("allStudents")
+    public Collection<Student> allStudent() {
+        return servStudent.allStudents();
+    }
+
+    @GetMapping("studentsBetweenAge")
+    public Collection<Student> findByAgeBetween(@RequestParam int min, @RequestParam int max) {
+        return servStudent.findByAgeBetween(min, max);
+    }
+
+    @GetMapping("/studentFacultyById/{id}")
+    public Faculty findFacultyByStudentId(@PathVariable Long id) {
+        return servStudent.findFacultyByStudentId(id);
+    }
+
+    @GetMapping("/studentFaculty")
+    public Faculty findFacultyByStudent(@RequestBody Student student) {
+        return servStudent.findFacultyByStudent(student);
+    }
+
+    @GetMapping("avgAgeOfStudents")
+    public double avgAgeOfStudents() {
+        return servStudent.avgAgeOfStudents();
+    }
+
+    @GetMapping("totalAmountOfStudents")
+    public int totalAmountOfStudents() {
+        return servStudent.totalAmountOfStudent();
+    }
+
+    @GetMapping("getLast/{lim}")
+    public Collection<Student> lastFive(@PathVariable int lim) {
+        return servStudent.getLast(lim);
+    }
+}
