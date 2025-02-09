@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class InfoService {
 
     private final Logger logger = LoggerFactory.getLogger(InfoService.class);
-
     @Value("${server.port}")
     private Integer port;
 
